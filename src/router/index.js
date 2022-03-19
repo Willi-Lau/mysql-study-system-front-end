@@ -1,0 +1,118 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+import Register from '../views/Register.vue'
+import ForgetPassword from '../views/ForgetPassword.vue'
+import MysqlStudy from '../views/MysqlStudy.vue'
+import MySQLPrePareIntroduce from '../views/MySQLPrePareIntroduce.vue'
+import MySQLPrePareInstall from '../views/MySQLPrePareInstall.vue'
+import MySQLJuniorChangeDatabases from '../views/MySQLJuniorChangeDatabases.vue'
+import MySQLJuniorChangeTables from '../views/MySQLJuniorChangeTables.vue'
+import MySQLJuniorSelect from '../views/MySQLJuniorSelect.vue'
+import MySQLJuniorInsert from '../views/MySQLJuniorInsert.vue'
+import MySQLJuniorUpdate from '../views/MySQLJuniorUpdate.vue'
+import MySQLJuniorDelete from '../views/MySQLJuniorDelete.vue'
+import MySQLJuniorGroupBy from '../views/MySQLJuniorGroupBy.vue'
+import MySQLJuniorOrderBy from '../views/MySQLJuniorOrderBy.vue'
+import MySQLJuniorJoin from '../views/MySQLJuniorJoin.vue'
+import MySQLJuniorLike from '../views/MySQLJuniorLike.vue'
+
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/MySQLJuniorLike',
+    name: 'MySQLJuniorLike',
+    component: MySQLJuniorLike
+  },
+  {
+    path: '/MySQLJuniorGroupBy',
+    name: 'MySQLJuniorGroupBy',
+    component: MySQLJuniorGroupBy
+  },
+  {
+    path: '/MySQLJuniorOrderBy',
+    name: 'MySQLJuniorOrderBy',
+    component: MySQLJuniorOrderBy
+  },
+  {
+    path: '/MySQLJuniorJoin',
+    name: 'MySQLJuniorJoin',
+    component: MySQLJuniorJoin
+  },
+  {
+    path: '/MySQLJuniorDelete',
+    name: 'MySQLJuniorDelete',
+    component: MySQLJuniorDelete
+  },
+  {
+    path: '/MySQLJuniorUpdate',
+    name: 'MySQLJuniorUpdate',
+    component: MySQLJuniorUpdate
+  },
+  {
+    path: '/MySQLJuniorInsert',
+    name: 'MySQLJuniorInsert',
+    component: MySQLJuniorInsert
+  },
+  {
+    path: '/MySQLJuniorSelect',
+    name: 'MySQLJuniorSelect',
+    component: MySQLJuniorSelect
+  },
+  {
+    path: '/MySQLJuniorChangeTables',
+    name: 'MySQLJuniorChangeTables',
+    component: MySQLJuniorChangeTables
+  },
+  {
+    path: '/MySQLJuniorChangeDatabases',
+    name: 'MySQLJuniorChangeDatabases',
+    component: MySQLJuniorChangeDatabases
+  },
+  {
+    path: '/MySQLPrePareInstall',
+    name: 'MySQLPrePareInstall',
+    component: MySQLPrePareInstall
+  },
+  {
+    path: '/MySQLPrePareIntroduce',
+    name: 'MySQLPrePareIntroduce',
+    component: MySQLPrePareIntroduce
+  },
+  {
+    path: '/MysqlStudy',
+    name: 'MysqlStudy',
+    component: MysqlStudy
+  },
+  {
+    path: '/ForgetPassword',
+    name: 'ForgetPassword',
+    component: ForgetPassword
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/About',
+    name: 'About',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  }
+]
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
