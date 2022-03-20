@@ -16,11 +16,29 @@ import MySQLJuniorGroupBy from '../views/MySQLJuniorGroupBy.vue'
 import MySQLJuniorOrderBy from '../views/MySQLJuniorOrderBy.vue'
 import MySQLJuniorJoin from '../views/MySQLJuniorJoin.vue'
 import MySQLJuniorLike from '../views/MySQLJuniorLike.vue'
+import MySQLJuniorUnion from '../views/MySQLJuniorUnion.vue'
+import MySQLJuniorRegular from '../views/MySQLJuniorRegular.vue'
+import MySQLSeniorFrameWork from '../views/MySQLSeniorFrameWork.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/MySQLSeniorFrameWork',
+    name: 'MySQLSeniorFrameWork',
+    component: MySQLSeniorFrameWork
+  },
+  {
+    path: '/MySQLJuniorRegular',
+    name: 'MySQLJuniorRegular',
+    component: MySQLJuniorRegular
+  },
+  {
+    path: '/MySQLJuniorUnion',
+    name: 'MySQLJuniorUnion',
+    component: MySQLJuniorUnion
+  },
   {
     path: '/MySQLJuniorLike',
     name: 'MySQLJuniorLike',

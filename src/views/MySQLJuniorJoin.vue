@@ -92,6 +92,7 @@ export default {
             width: 100px;  
             height: 1800px;
             bottom:0px;
+            z-index: 1;
       }
       .MySQLJuniorOrderBy .homeBottom1{
             position: relative;
@@ -102,6 +103,7 @@ export default {
             left: -20px;
             /* right: 0px; */
             width: 102%;
+            z-index: 100;
            
         }
         .MySQLJuniorOrderBy .homeBottom1 .text{

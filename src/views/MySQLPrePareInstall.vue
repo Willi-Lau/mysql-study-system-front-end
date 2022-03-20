@@ -94,6 +94,7 @@ export default {
             width: 100px;  
             height: 2200px;
             bottom:0px;
+            z-index: 1;
       }
       .anzhaung .homeBottom1{
             position: relative;
@@ -104,6 +105,7 @@ export default {
             left: -20px;
             /* right: 0px; */
             width: 102%;
+            z-index: 100;
            
         }
         .anzhaung .homeBottom1 .text{

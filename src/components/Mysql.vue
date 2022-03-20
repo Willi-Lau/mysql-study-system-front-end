@@ -42,10 +42,10 @@
                             <el-menu-item index="2-6" @click="MySQLJuniorDelete" >MySQL Delete</el-menu-item>
                             <el-menu-item index="2-7" @click="MySQLJuniorOrderBy" >MySQL Order By</el-menu-item>
                             <el-menu-item index="2-8" @click="MySQLJuniorGroupBy" >MySQL Group By</el-menu-item>
-                            <el-menu-item index="2-9" @click="MySQLJuniorJoin" >MySQL Union</el-menu-item>
+                            <el-menu-item index="2-9" @click="MySQLJuniorUnion" >MySQL Union</el-menu-item>
                             <el-menu-item index="2-10" @click="MySQLJuniorJoin" >MySQL Join</el-menu-item>
                             <el-menu-item index="2-11" @click="MySQLJuniorLike" >MySQL Like</el-menu-item>
-                            <el-menu-item index="2-12" @click="MySQLJuniorJoin" >MySQL 正则表达式</el-menu-item>
+                            <el-menu-item index="2-12" @click="MySQLJuniorRegular" >MySQL 正则表达式</el-menu-item>
                             
                     </el-submenu>
                     <!-- 高级 -->
@@ -55,22 +55,22 @@
                             <span>MySQL 高级</span>
 
                         </template>
-                        <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 体系架构</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 事务</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 分布式事务</el-menu-item>
-                            <el-menu-item index="1-1" @click="mysqlJieShao" >MySQL 索引基础</el-menu-item>
-                            <el-menu-item index="1-1" @click="mysqlJieShao" >MySQL 索引高级</el-menu-item>
-                            <el-menu-item index="1-2" @click="mysqlAnZhuang" >MySQL Expalin</el-menu-item>
-                            <el-menu-item index="1-3" @click="mysqlGuanLi" >MySQL InnoDB</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL MyISAM</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL B-Tree</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL MVCC</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL 锁基础</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 锁高级</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL Undolog</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL Redolog</el-menu-item>
-                            <el-menu-item index="1-4" @click="mysqlLianJie" >MySQL Binlog</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 性能调优</el-menu-item>
+                        <el-menu-item index="3-1" @click="MySQLSeniorFrameWork" >MySQL 体系架构</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 事务</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 分布式事务</el-menu-item>
+                            <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引基础</el-menu-item>
+                            <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引高级</el-menu-item>
+                            <el-menu-item index="1-2" @click="MySQLSeniorFrameWork" >MySQL Expalin</el-menu-item>
+                            <el-menu-item index="1-3" @click="MySQLSeniorFrameWork" >MySQL InnoDB</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL MyISAM</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL B-Tree</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL MVCC</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL 锁基础</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 锁高级</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Undolog</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Redolog</el-menu-item>
+                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Binlog</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 性能调优</el-menu-item>
                     </el-submenu>
                     <!-- 面试题 -->
                     <el-submenu index="4">
@@ -191,6 +191,31 @@ export default {
          MySQLJuniorLike(){
              this.$router.push({
                 path: "/MySQLJuniorLike", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+          MySQLJuniorUnion(){
+             this.$router.push({
+                path: "/MySQLJuniorUnion", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLJuniorRegular(){
+             this.$router.push({
+                path: "/MySQLJuniorRegular", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+        // 高级
+        MySQLSeniorFrameWork(){
+             this.$router.push({
+                path: "/MySQLSeniorFrameWork", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }

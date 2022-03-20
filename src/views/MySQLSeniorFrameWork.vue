@@ -1,5 +1,5 @@
 <template>
-  <div class="MySQLJuniorInsert">
+  <div class="MySQLSeniorFrameWork">
     <!-- 公共部分 -->
       <div class="homeTitle2">
           
@@ -19,23 +19,27 @@
       </div>
       <div class="d1">
           <h1>
-            MySQL 插入数据
+           MySQL 架构设计
           </h1>
-          MySQL 表中使用 INSERT INTO SQL语句来插入数据 <br>
+         首先来看一下MySQL架构图<br><br>
 
-          你可以通过 mysql> 命令提示窗口中在数据库中查询数据<br>
-          <h3>语法 </h3>
-          以下为在MySQL数据库中查询数据通用的 INSERT 语法：<br>
-           <div class="info">
-                <br>
-               INSERT INTO table_name ( field1, field2,...fieldN )<br>
-                 VALUES<br>
-                ( value1, value2,...valueN );<br>
-               <br>
-               
-               </div><br><br>
-
-               如果数据是字符型，必须使用单引号或者双引号，如："value"。 <br><br>
+          <img src="../assets/mysql-framework.png"><br><br>
+           <div>
+               1.最上层的服务并不是MySQL独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构。比如连接处理，授权认证，安全等
+           </div>
+           <br><br>
+           <div>
+               2.第二层的架构是MySQL中比较有意思的部分。大多数MySQL核心服务都在这一层，包括查询解析，分析，优化，缓存及所有的内置函数（例如日期，时间，数学，加密函数）
+                ，所有跨存储引擎的功能都在这一层实现：存储过程，触发器，函数等
+           </div>
+            <br><br>
+           <div>
+               3.第三增包含了存储引擎。存储引擎负责MySQL中数据的存储和提取.和GNU/Linux下的各种文件系统一样，每一个存储引擎都有它的优势和劣势
+               。服务器通过Api与存储引擎进行通信。这些接口屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明。存储引擎Api包含了
+               几十个底层函数，用于执行诸如‘开始一个事务’或者‘根据主键提取一行记录’等操作。但存储引擎不回去解析SQL，不同的存储引擎不会通信，
+               而是简单的相应上层服务器的请求。
+           </div>
+         
       </div>       
     </div>
   </div>
@@ -59,7 +63,7 @@ export default {
 </script>
 <style>
 /* 公共部分 */
-      .MySQLJuniorInsert .homeTitle2{
+      .MySQLSeniorFrameWork .homeTitle2{
           position: absolute;
           
           background-color:rgba(66,66,66);
@@ -70,7 +74,7 @@ export default {
             bottom:0px;
             z-index: 1;
       }
-      .MySQLJuniorInsert .homeBottom1{
+      .MySQLSeniorFrameWork .homeBottom1{
             position: relative;
             top: 1850px;
             
@@ -82,14 +86,14 @@ export default {
             z-index: 100;
            
         }
-        .MySQLJuniorInsert .homeBottom1 .text{
+        .MySQLSeniorFrameWork .homeBottom1 .text{
           position: relative;
           top: 40px;
           color: rgb(200, 150, 102);
           font-size: small;
         }
       /* over */
-   .MySQLJuniorInsert .d1{
+   .MySQLSeniorFrameWork .d1{
       float: left;
       text-align: left;
       position: relative;
@@ -98,7 +102,7 @@ export default {
 
       /* border-bottom: solid 1px #484a50; */
     }
-   .MySQLJuniorInsert .mysql-change-1{
+   .MySQLSeniorFrameWork .mysql-change-1{
       position: absolute;
       left: 300px;
       top: 100px;
