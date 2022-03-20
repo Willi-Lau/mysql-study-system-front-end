@@ -21,11 +21,23 @@ import MySQLJuniorRegular from '../views/MySQLJuniorRegular.vue'
 import MySQLSeniorFrameWork from '../views/MySQLSeniorFrameWork.vue'
 import MySQLSeniorAffair from '../views/MySQLSeniorAffair.vue'
 import MySQLSeniorDistributeAffair from '../views/MySQLSeniorDistributeAffair.vue'
+import MySQLSeniorIndex1 from '../views/MySQLSeniorIndex1.vue'
+import MySQLSeniorIndex2 from '../views/MySQLSeniorIndex2.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/MySQLSeniorIndex1',
+    name: 'MySQLSeniorIndex1',
+    component: MySQLSeniorIndex1
+  },
+  {
+    path: '/MySQLSeniorIndex2',
+    name: 'MySQLSeniorIndex2',
+    component: MySQLSeniorIndex2
+  },
   {
     path: '/MySQLSeniorAffair',
     name: 'MySQLSeniorAffair',

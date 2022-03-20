@@ -58,8 +58,8 @@
                         <el-menu-item index="3-1" @click="MySQLSeniorFrameWork" >MySQL 体系架构</el-menu-item>
                             <el-menu-item index="2-13" @click="MySQLSeniorAffair" >MySQL 事务</el-menu-item>
                             <el-menu-item index="2-13" @click="MySQLSeniorDistributeAffair" >MySQL 分布式事务</el-menu-item>
-                            <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引基础</el-menu-item>
-                            <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引高级</el-menu-item>
+                            <el-menu-item index="1-1" @click="MySQLSeniorIndex1" >MySQL 索引基础</el-menu-item>
+                            <el-menu-item index="1-1" @click="MySQLSeniorIndex2" >MySQL 索引高级</el-menu-item>
                             <el-menu-item index="1-2" @click="MySQLSeniorFrameWork" >MySQL Expalin</el-menu-item>
                             <el-menu-item index="1-3" @click="MySQLSeniorFrameWork" >MySQL InnoDB</el-menu-item>
                             <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL MyISAM</el-menu-item>
@@ -232,6 +232,22 @@ export default {
          MySQLSeniorDistributeAffair(){
              this.$router.push({
                 path: "/MySQLSeniorDistributeAffair", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorIndex1(){
+             this.$router.push({
+                path: "/MySQLSeniorIndex1", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorIndex2(){
+             this.$router.push({
+                path: "/MySQLSeniorIndex2", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }
