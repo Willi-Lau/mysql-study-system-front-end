@@ -56,8 +56,8 @@
 
                         </template>
                         <el-menu-item index="3-1" @click="MySQLSeniorFrameWork" >MySQL 体系架构</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 事务</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 分布式事务</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorAffair" >MySQL 事务</el-menu-item>
+                            <el-menu-item index="2-13" @click="MySQLSeniorDistributeAffair" >MySQL 分布式事务</el-menu-item>
                             <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引基础</el-menu-item>
                             <el-menu-item index="1-1" @click="MySQLSeniorFrameWork" >MySQL 索引高级</el-menu-item>
                             <el-menu-item index="1-2" @click="MySQLSeniorFrameWork" >MySQL Expalin</el-menu-item>
@@ -216,6 +216,22 @@ export default {
         MySQLSeniorFrameWork(){
              this.$router.push({
                 path: "/MySQLSeniorFrameWork", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorAffair(){
+             this.$router.push({
+                path: "/MySQLSeniorAffair", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorDistributeAffair(){
+             this.$router.push({
+                path: "/MySQLSeniorDistributeAffair", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }

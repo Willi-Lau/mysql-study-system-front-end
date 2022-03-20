@@ -23,7 +23,7 @@
           </h1>
          首先来看一下MySQL架构图<br><br>
 
-          <img src="../assets/mysql-framework.png"><br><br>
+          <img src="../assets/mysql-framework.jpg" width="800px"><br><br>
            <div>
                1.最上层的服务并不是MySQL独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构。比如连接处理，授权认证，安全等
            </div>
