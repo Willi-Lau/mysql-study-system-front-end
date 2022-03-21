@@ -23,11 +23,29 @@ import MySQLSeniorAffair from '../views/MySQLSeniorAffair.vue'
 import MySQLSeniorDistributeAffair from '../views/MySQLSeniorDistributeAffair.vue'
 import MySQLSeniorIndex1 from '../views/MySQLSeniorIndex1.vue'
 import MySQLSeniorIndex2 from '../views/MySQLSeniorIndex2.vue'
+import MySQLSeniorExplain from '../views/MySQLSeniorExplain.vue'
+import MySQLSeniorInnodb from '../views/MySQLSeniorInnodb.vue'
+import MySQLSeniorBTree from '../views/MySQLSeniorBTree.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/MySQLSeniorBTree',
+    name: 'MySQLSeniorBTree',
+    component: MySQLSeniorBTree
+  },
+  {
+    path: '/MySQLSeniorInnodb',
+    name: 'MySQLSeniorInnodb',
+    component: MySQLSeniorInnodb
+  },
+  {
+    path: '/MySQLSeniorExplain',
+    name: 'MySQLSeniorExplain',
+    component: MySQLSeniorExplain
+  },
   {
     path: '/MySQLSeniorIndex1',
     name: 'MySQLSeniorIndex1',

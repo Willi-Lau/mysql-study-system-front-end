@@ -56,21 +56,20 @@
 
                         </template>
                         <el-menu-item index="3-1" @click="MySQLSeniorFrameWork" >MySQL 体系架构</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorAffair" >MySQL 事务</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorDistributeAffair" >MySQL 分布式事务</el-menu-item>
-                            <el-menu-item index="1-1" @click="MySQLSeniorIndex1" >MySQL 索引基础</el-menu-item>
-                            <el-menu-item index="1-1" @click="MySQLSeniorIndex2" >MySQL 索引高级</el-menu-item>
-                            <el-menu-item index="1-2" @click="MySQLSeniorFrameWork" >MySQL Expalin</el-menu-item>
-                            <el-menu-item index="1-3" @click="MySQLSeniorFrameWork" >MySQL InnoDB</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL MyISAM</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL B-Tree</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL MVCC</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL 锁基础</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 锁高级</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Undolog</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Redolog</el-menu-item>
-                            <el-menu-item index="1-4" @click="MySQLSeniorFrameWork" >MySQL Binlog</el-menu-item>
-                            <el-menu-item index="2-13" @click="MySQLSeniorFrameWork" >MySQL 性能调优</el-menu-item>
+                            <el-menu-item index="3-2" @click="MySQLSeniorAffair" >MySQL 事务</el-menu-item>
+                            <el-menu-item index="3-3" @click="MySQLSeniorDistributeAffair" >MySQL 分布式事务</el-menu-item>
+                            <el-menu-item index="3-4" @click="MySQLSeniorIndex1" >MySQL 索引基础</el-menu-item>
+                            <el-menu-item index="3-5" @click="MySQLSeniorIndex2" >MySQL 索引高级</el-menu-item>
+                            <el-menu-item index="3-6" @click="MySQLSeniorExplain" >MySQL Expalin</el-menu-item>
+                            <el-menu-item index="3-7" @click="MySQLSeniorInnodb" >MySQL 存储引擎</el-menu-item>
+                            <el-menu-item index="3-9" @click="MySQLSeniorBTree" >MySQL B+ Tree</el-menu-item>
+                            <el-menu-item index="3-10" @click="MySQLSeniorFrameWork" >MySQL MVCC</el-menu-item>
+                            <el-menu-item index="3-11" @click="MySQLSeniorFrameWork" >MySQL 锁基础</el-menu-item>
+                            <el-menu-item index="3-12" @click="MySQLSeniorFrameWork" >MySQL 锁高级</el-menu-item>
+                            <el-menu-item index="3-13" @click="MySQLSeniorFrameWork" >MySQL Undolog</el-menu-item>
+                            <el-menu-item index="3-14" @click="MySQLSeniorFrameWork" >MySQL Redolog</el-menu-item>
+                            <el-menu-item index="3-15" @click="MySQLSeniorFrameWork" >MySQL Binlog</el-menu-item>
+                            <el-menu-item index="3-16" @click="MySQLSeniorFrameWork" >MySQL 性能调优</el-menu-item>
                     </el-submenu>
                     <!-- 面试题 -->
                     <el-submenu index="4">
@@ -248,6 +247,30 @@ export default {
          MySQLSeniorIndex2(){
              this.$router.push({
                 path: "/MySQLSeniorIndex2", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorExplain(){
+             this.$router.push({
+                path: "/MySQLSeniorExplain", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+        MySQLSeniorInnodb(){
+             this.$router.push({
+                path: "/MySQLSeniorInnodb", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+        MySQLSeniorBTree(){
+             this.$router.push({
+                path: "/MySQLSeniorBTree", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }
