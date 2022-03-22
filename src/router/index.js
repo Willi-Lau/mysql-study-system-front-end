@@ -26,11 +26,22 @@ import MySQLSeniorIndex2 from '../views/MySQLSeniorIndex2.vue'
 import MySQLSeniorExplain from '../views/MySQLSeniorExplain.vue'
 import MySQLSeniorInnodb from '../views/MySQLSeniorInnodb.vue'
 import MySQLSeniorBTree from '../views/MySQLSeniorBTree.vue'
-
+import MySQLSeniorMVCC from '../views/MySQLSeniorMVCC.vue'
+import MySQLSeniorLock from '../views/MySQLSeniorLock.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/MySQLSeniorLock',
+    name: 'MySQLSeniorLock',
+    component: MySQLSeniorLock
+  },
+  {
+    path: '/MySQLSeniorMVCC',
+    name: 'MySQLSeniorMVCC',
+    component: MySQLSeniorMVCC
+  },
   {
     path: '/MySQLSeniorBTree',
     name: 'MySQLSeniorBTree',

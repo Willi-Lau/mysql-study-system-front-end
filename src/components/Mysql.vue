@@ -63,9 +63,8 @@
                             <el-menu-item index="3-6" @click="MySQLSeniorExplain" >MySQL Expalin</el-menu-item>
                             <el-menu-item index="3-7" @click="MySQLSeniorInnodb" >MySQL 存储引擎</el-menu-item>
                             <el-menu-item index="3-9" @click="MySQLSeniorBTree" >MySQL B+ Tree</el-menu-item>
-                            <el-menu-item index="3-10" @click="MySQLSeniorFrameWork" >MySQL MVCC</el-menu-item>
-                            <el-menu-item index="3-11" @click="MySQLSeniorFrameWork" >MySQL 锁基础</el-menu-item>
-                            <el-menu-item index="3-12" @click="MySQLSeniorFrameWork" >MySQL 锁高级</el-menu-item>
+                            <el-menu-item index="3-10" @click="MySQLSeniorMVCC" >MySQL MVCC</el-menu-item>
+                            <el-menu-item index="3-11" @click="MySQLSeniorLock" >MySQL 锁</el-menu-item>
                             <el-menu-item index="3-13" @click="MySQLSeniorFrameWork" >MySQL Undolog</el-menu-item>
                             <el-menu-item index="3-14" @click="MySQLSeniorFrameWork" >MySQL Redolog</el-menu-item>
                             <el-menu-item index="3-15" @click="MySQLSeniorFrameWork" >MySQL Binlog</el-menu-item>
@@ -75,12 +74,10 @@
                     <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>MySQL 面试题</span>
+                            <span>MySQL 推荐书籍</span>
                         </template>
-                        <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 体系架构</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 面试题-网易</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 面试题-字节跳动</el-menu-item>
-                            <el-menu-item index="2-13" @click="mysqlJieShao" >MySQL 面试题-快手</el-menu-item>
+                        <el-menu-item index="4-1" @click="mysqlBook" >MySQL 推荐书籍</el-menu-item>
+
                     </el-submenu>
                     </el-menu>
                 </el-col>
@@ -271,6 +268,22 @@ export default {
         MySQLSeniorBTree(){
              this.$router.push({
                 path: "/MySQLSeniorBTree", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+        MySQLSeniorMVCC(){
+             this.$router.push({
+                path: "/MySQLSeniorMVCC", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+        MySQLSeniorLock(){
+             this.$router.push({
+                path: "/MySQLSeniorLock", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }

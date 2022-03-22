@@ -34,7 +34,8 @@
       
              <br><br> 
             <h4>包含属性：</h4>   
-                 id  select_type  table  type  possible_keys  key   key_len  ref   rows  Extra  <br> 
+                 id  select_type  table  type  possible_keys  key   key_len  ref   rows  Extra  <br>  <br> 
+
 
                <h5>id:查询顺序</h5>  
                     select 查询的序列号，包含一组数字，表示查询中执行的select 子句或操作表的顺序 <br>  <br> 
@@ -45,7 +46,7 @@
                         id相同+不同： <br> 
                             一般是有一个虚表， from (select * ...) 这种情况下 虚表会认为是衍生表 table 属性是 derivcer id <br> 
                             id 如果相同，可以认为是一组，从上往下顺序执行， <br> 
-                            id不同，id越大越先执行 <br> 
+                            id不同，id越大越先执行 <br> <br> 
 
                 <h5>select_type: 查询语句类型</h5>
                     常用值： <br> 
@@ -61,10 +62,10 @@
 
                         union：：若第二个select 出现在union中，则会被标记为union。若union包含再from子句的子查询中，外层select将标记为derived <br> 
 
-                        union result:从union表获取结果的select  <br> 
+                        union result:从union表获取结果的select  <br> <br> 
                 
                 <h5>table： 表</h5>
-                    来自那个表 有别名返回的就是别名
+                    来自那个表 有别名返回的就是别名<br> <br> 
                 
                 <h5>type:     访问类型排序</h5>
                     显示查询使用的是那种类型 <br> 
@@ -87,10 +88,10 @@
 
                         index 遍历全部得索引和树 <br> 
 
-                         all 全表扫描 <br> 
+                         all 全表扫描 <br> <br> 
 
                 <h5>possible_keys：</h5>
-                    此次查序可能用到得全部索引，不一定真的被用到 <br> 
+                    此次查序可能用到得全部索引，不一定真的被用到 <br> <br> 
                 
                 <h5>key:</h5>
                     实际用到得索引 <br> 
@@ -102,17 +103,17 @@
                         select c1,c2 from student; <br> 
 
                         这里理论上 possible_keys什么都用不上，但是select 得 c1,c2 和索引 c1_c2 里得顺序一模一样，所以还是用了 索引 <br> 
-            
+            <br> 
                 <h5>key_len</h5>
-                    索引中使用的字节数 长度越短越好 <br> 
+                    索引中使用的字节数 长度越短越好 <br> <br> 
                 
                 <h5>ref:</h5>
                     显示索引得哪一列被使用了，如果可能的话，是一个常数。哪些列或常量被用于查找索引列上得值 <br> 
                     值： <br> 
                         const 常量 <br> 
-                        school.student.name    引用了school库 studnet 表 name 字段 <br> 
+                        school.student.name    引用了school库 studnet 表 name 字段 <br> <br> 
                 <h5>rows：</h5>
-                    大致估算找到所需记录得行数 <br> 
+                    大致估算找到所需记录得行数 <br> <br> 
                 
                 <h5>Extra:</h5>
                     包含不适合再其他字段显示得信息 <br> 
@@ -122,7 +123,7 @@
 
                         using temporary :  坏 <br> 
                                 使用了临时表保存数据 常见于 order by 和 group by    (group by ,order by 尽量按照所建索引个数顺序进行书写)      <br>    
-                                e.g.
+                                e.g.<br> 
                                      create index index_c1_c2 on student(c1,c2); <br> 
 
                                      explain select c1 from student where c1 in ('ac','ab') group by c1  <br> 
@@ -165,6 +166,26 @@ export default {
   data() {
       return{
           token:this.$route.query.token,
+           tableData: [
+             {
+                pattern: 'id:查询顺序',
+                describe: 
+               " select 查询的序列号，包含一组数字，表示查询中执行的select 子句或操作表的顺序  "+
+                    "值：id 相同 （查询多个表时）                    "+
+                            "普通查询 ，查询顺序是一样的，由上到下执行            "+
+                        "Id不相同：（查询多个表时）  "+
+                            "如果是子查询，id 序列号会递增 ，id值越大越优先查询"+
+                        "id相同+不同："+
+                            "一般是有一个虚表， from (select * ...) 这种情况下 虚表会认为是衍生表 table 属性是 derivcer id"+
+                           " id 如果相同，可以认为是一组，从上往下顺序执行，"+
+                            "id不同，id越大越先执行"
+                
+                
+             }, 
+             
+             
+             
+             ]
       }
     },
     methods:{
