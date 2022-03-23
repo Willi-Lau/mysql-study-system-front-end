@@ -28,10 +28,35 @@ import MySQLSeniorInnodb from '../views/MySQLSeniorInnodb.vue'
 import MySQLSeniorBTree from '../views/MySQLSeniorBTree.vue'
 import MySQLSeniorMVCC from '../views/MySQLSeniorMVCC.vue'
 import MySQLSeniorLock from '../views/MySQLSeniorLock.vue'
+import MySQLSeniorUndoLog from '../views/MySQLSeniorUndoLog.vue'
+import MySQLSeniorRedoLog from '../views/MySQLSeniorRedoLog.vue'
+import MySQLSeniorBinLog from '../views/MySQLSeniorBinLog.vue'
+import MySQLProgram from '../views/MySQLProgram.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/MySQLProgram',
+    name: 'MySQLProgram',
+    component: MySQLProgram
+  },
+  {
+    path: '/MySQLSeniorUndoLog',
+    name: 'MySQLSeniorUndoLog',
+    component: MySQLSeniorUndoLog
+  },
+  {
+    path: '/MySQLSeniorRedoLog',
+    name: 'MySQLSeniorRedoLog',
+    component: MySQLSeniorRedoLog
+  },
+  {
+    path: '/MySQLSeniorBinLog',
+    name: 'MySQLSeniorBinLog',
+    component: MySQLSeniorBinLog
+  },
+
   {
     path: '/MySQLSeniorLock',
     name: 'MySQLSeniorLock',

@@ -65,20 +65,20 @@
                             <el-menu-item index="3-9" @click="MySQLSeniorBTree" >MySQL B+ Tree</el-menu-item>
                             <el-menu-item index="3-10" @click="MySQLSeniorMVCC" >MySQL MVCC</el-menu-item>
                             <el-menu-item index="3-11" @click="MySQLSeniorLock" >MySQL 锁</el-menu-item>
-                            <el-menu-item index="3-13" @click="MySQLSeniorFrameWork" >MySQL Undolog</el-menu-item>
-                            <el-menu-item index="3-14" @click="MySQLSeniorFrameWork" >MySQL Redolog</el-menu-item>
-                            <el-menu-item index="3-15" @click="MySQLSeniorFrameWork" >MySQL Binlog</el-menu-item>
-                            <el-menu-item index="3-16" @click="MySQLSeniorFrameWork" >MySQL 性能调优</el-menu-item>
+                            <el-menu-item index="3-13" @click="MySQLSeniorRedoLog" >MySQL Redolog</el-menu-item>
+                            <el-menu-item index="3-14" @click="MySQLSeniorBinLog" >MySQL Binlog</el-menu-item>
+                            <el-menu-item index="3-15" @click="MySQLSeniorUndoLog" >MySQL Undolog</el-menu-item>
+                            <!-- <el-menu-item index="3-16" @click="MySQLSeniorFrameWork" >MySQL 性能调优</el-menu-item> -->
                     </el-submenu>
                     <!-- 面试题 -->
-                    <el-submenu index="4">
+                    <!-- <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>MySQL 推荐书籍</span>
                         </template>
                         <el-menu-item index="4-1" @click="mysqlBook" >MySQL 推荐书籍</el-menu-item>
 
-                    </el-submenu>
+                    </el-submenu> -->
                     </el-menu>
                 </el-col>
                 </el-row>
@@ -284,6 +284,30 @@ export default {
         MySQLSeniorLock(){
              this.$router.push({
                 path: "/MySQLSeniorLock", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorUndoLog(){
+             this.$router.push({
+                path: "/MySQLSeniorUndoLog", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorRedoLog(){
+             this.$router.push({
+                path: "/MySQLSeniorRedoLog", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+        },
+         MySQLSeniorBinLog(){
+             this.$router.push({
+                path: "/MySQLSeniorBinLog", //目标URL，为注册的路由
                 query:{
                       token:this.token
                       }

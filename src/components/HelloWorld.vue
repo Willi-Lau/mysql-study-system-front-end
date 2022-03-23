@@ -1,12 +1,13 @@
 <template>
     <div>
         <div class="homeTitle">
-              <div>
-                  <i class="el-icon-s-home"></i>
-                  <i class="el-icon-user"></i>
-                  <i class="el-icon-s-custom"></i>
-                  <i class="el-icon-phone"></i>
-                  <i class="el-icon-loading"></i>
+              <div class="button">
+                <div></div>
+                   <el-button type="text">教学主页</el-button>
+                   <el-button type="text" @click="MySQLProgram">编程主页</el-button>
+                   <el-button type="text">登录</el-button>
+                   <el-button type="text">注册</el-button>
+                   <el-button type="text">个人信息</el-button>
               </div>
         </div>
     </div>
@@ -15,6 +16,21 @@
 
 <script>
 export default {
+  data() {
+        return{
+                token:this.$route.query.token
+            }
+        },
+  methods:{
+      MySQLProgram(){
+            this.$router.push({
+                path: "/MySQLProgram", //目标URL，为注册的路由
+                query:{
+                      token:this.token
+                      }
+            });
+      }  
+  },
   name: 'HelloWorld',
   props: {
     msg: String
@@ -31,9 +47,13 @@ export default {
       left: 0px;
       height: 100px;
       right: 0px;
+      z-index: 10000;
   }
    .homeTitle i{
      color: white;
      font-size: 40px;
+   }
+   .button{
+     size: 100px;
    }
 </style>

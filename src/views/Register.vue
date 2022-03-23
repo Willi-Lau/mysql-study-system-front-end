@@ -59,7 +59,8 @@
 <script>
 import HelloWorld from '../components/HelloWorld.vue';
 export default {
-  data() {{
+  data() {
+    {
        var validatePass = (rule, value, callback) => {
                     if (value === '') {
                         callback(new Error('请输入密码'));
@@ -180,7 +181,7 @@ export default {
                     ],
            password: [
                         { required: true , message: '请输入密码名', trigger: 'blur'},
-                        { validator: validatePass, trigger: 'blur' }
+                        { validator: validatePass, trigger: 'blur' } 
                     ],
            surePassword: [
                          { required: true, message: '请再次输入密码', trigger: 'blur' },
