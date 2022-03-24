@@ -213,6 +213,8 @@ export default {
                     this.loginErrorNull(this.resultDto.object);
                 }
                 else{
+                  //创建自带user 表
+
                     this.$alert('注册成功', 'success', {
                         confirmButtonText: '确定',
                         callback: action => {
