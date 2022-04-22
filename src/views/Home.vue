@@ -19,8 +19,9 @@
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="submitForm('ruleForm')">登录</el-button>
-            <el-button type="info" @click="register">注册</el-button>
-            <el-button type="info" @click="forgetPassword">忘记密码</el-button>
+            <el-button type="warning" @click="register">注册</el-button>
+            <el-button type="danger" @click="forgetPassword">忘记密码</el-button>
+            <el-button type="primary" @click="managerLogin('ruleForm')">管理员登录</el-button>
           </el-form-item>
       </el-form>
     </div>
@@ -60,7 +61,20 @@ export default {
         };
     },
     methods: {
-        submitForm(formName) {
+        // socket
+            OnMessage(event){
+                // alert(event.data)
+                 this.$notify({
+                    title: '提示',
+                    message: event.data,
+                    duration: 0,
+                    type: 'success'
+                    
+                    });
+            },
+            OnOpen(){},
+            OnError(){},
+            submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 // 登录验证部分
                 if (valid) {
@@ -77,9 +91,13 @@ export default {
                             this.loginErrorNotMatching();
                             return false;
                         }
+                        else if(this.resultDto.object === "拉黑"){
+                            this.loginErrorBlackList();
+                            return false;
+                        }
                         else {
                             //设置token
-                             this.token = this.resultDto.token;
+                             this.token = this.resultDto.object;
                              this.$router.push({
                                 path: "/MySQLPrePareIntroduce", //目标URL，为注册的路由
                                 query:{
@@ -100,6 +118,53 @@ export default {
                 }
             });
         },
+
+        managerLogin(formName) {
+            this.$refs[formName].validate((valid) => {
+                // 登录验证部分
+                if (valid) {
+                    //向后台查找，返回关于这个选手的所有信息，包括选手表和图库信息       selectcandidateimages
+                    this.$axios.post("LoginController/managerLogin", this.$qs.stringify({
+                        username: this.ruleForm.username,
+                        password: this.ruleForm.password
+                    })).then(response => {
+                        this.resultDto = response.data;
+                        console.log(this.resultDto)
+                        var resp = this.resultDto.type;
+                        if (resp === false) {
+                            //登录失败
+                            this.loginErrorNotMatching();
+                            return false;
+                        }
+                           else if(this.resultDto.object === "拉黑"){
+                            this.loginErrorBlackList();
+                            return false;
+                        }
+                        else {
+                            //设置token
+                             this.token = this.resultDto.map.token;
+                             this.$router.push({
+                                path: "/ManagerHome", //目标URL，为注册的路由
+                                query:{
+                                    token:this.resultDto.map.token
+                                }
+                            });
+                            //登陆成功
+                            return true;
+                            
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                }
+                else {
+                    //有空白项
+                    this.loginErrorNull;
+                    return false;
+                }
+            });
+        },
+        
         register() {
             this.$router.push({
                 path: "/Register", //目标URL，为注册的路由
@@ -137,10 +202,27 @@ export default {
                     });
                 }
             });
+        },
+        loginErrorBlackList() {
+            this.$alert("登陆失败，此账号被封禁", "error", {
+                confirmButtonText: "确定",
+                callback: action => {
+                    this.$message({
+                        type: "error",
+                        message: `登录失败:此账号被封禁`
+                    });
+                }
+            });
         }
     },
     name: "Home",
-    components: { HelloWorld }
+    components: { HelloWorld },
+    created(){
+        var source = new EventSource("http://127.0.0.1:9999/subscribe");
+        source.onopen = this.OnOpen;
+        source.onmessage = this.OnMessage;
+        source.onerror = this.OnError;
+    }
 }
 </script>
 

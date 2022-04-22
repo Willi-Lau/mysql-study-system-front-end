@@ -31,10 +31,10 @@
                <el-form-item label="大学" prop="phone" >
                    <el-select v-model="ruleForm.university" filterable placeholder="请选择">
                         <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        v-for="item in schoolList"
+                        :key="item.name"
+                        :label="item.name"
+                        :value="item.name">
                         </el-option>
                     </el-select>
                   </el-form-item>
@@ -135,25 +135,13 @@ export default {
 
                 }
             },
-        options: [{
-          value: '辽宁工程技术大学',
-          label: '辽宁工程技术大学'
-        }, {
-          value: '东北大学',
-          label: '东北大学'
-        }, {
-          value: '选北京大学项3',
-          label: '北京大学'
-        }, {
-          value: '清华大学',
-          label: '清华大学'
-        }, {
-          value: '大连理工大学',
-          label: '大连理工大学'
-        }, {
-          value: '渤海大学',
-          label: '渤海大学'
-        }],
+         schoolList:[{
+              id:'',
+              name:'',
+              createTime:'',
+              deadline:'',
+              studentNum:''
+          }],
         value: '',
         ruleForm: {
           name: '',
@@ -199,6 +187,19 @@ export default {
       };
     },
     methods: {
+      // socket
+            OnMessage(event){
+                // alert(event.data)
+                 this.$notify({
+                    title: '提示',
+                    message: event.data,
+                    duration: 0,
+                    type: 'success'
+                    
+                    });
+            },
+            OnOpen(){},
+            OnError(){},
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           // 登录验证部分
@@ -266,6 +267,28 @@ export default {
     },
   name: 'Register',
  components: { HelloWorld }
+  ,
+  created(){
+   var source = new EventSource("http://127.0.0.1:9999/subscribe");
+        source.onopen = this.OnOpen;
+        source.onmessage = this.OnMessage;
+        source.onerror = this.OnError;
+
+         this.$axios.post("ManagerController/getSchoolList", this.$qs.stringify({
+                    })).then(response => {
+                        var info = response.data;
+                        this.schoolList = info.map.schoolList;
+                        // for(var i = 0 ; i < schoolList.length ; i ++){
+                                
+                        //         schoolOptions[i].label = schoolList[i].name;
+                        //         schoolOptions[i].value = schoolList[i].name;
+                               
+                        // }
+                        console.log(this.schoolList);
+                    }).catch(error => {
+                        console.log(error);
+                    });
+ }
 }
 </script>
 <style>

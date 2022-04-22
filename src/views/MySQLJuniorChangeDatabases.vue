@@ -58,6 +58,19 @@ export default {
       }
     },
     methods:{
+      // socket
+            OnMessage(event){
+                // alert(event.data)
+                 this.$notify({
+                    title: '提示',
+                    message: event.data,
+                    duration: 0,
+                    type: 'success'
+                    
+                    });
+            },
+            OnOpen(){},
+            OnError(){}
 
     },
   name: 'Register',

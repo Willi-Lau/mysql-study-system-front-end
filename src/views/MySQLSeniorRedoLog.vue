@@ -62,10 +62,29 @@ export default {
       }
     },
     methods:{
-
+      // socket
+            OnMessage(event){
+                // alert(event.data)
+                 this.$notify({
+                    title: '提示',
+                    message: event.data,
+                    duration: 0,
+                    type: 'success'
+                    
+                    });
+            },
+            OnOpen(){},
+            OnError(){}
     },
   name: 'Register',
  components: { HelloWorld,Mysql }
+ ,
+  created(){
+   var source = new EventSource("http://127.0.0.1:9999/subscribe");
+        source.onopen = this.OnOpen;
+        source.onmessage = this.OnMessage;
+        source.onerror = this.OnError;
+ }
 }
 </script>
 <style>

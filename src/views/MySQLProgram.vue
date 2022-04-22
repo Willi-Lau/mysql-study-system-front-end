@@ -68,12 +68,13 @@
                             <el-input v-model="logForm.log" placeholder="" type="textarea" :rows="3" disabled></el-input>
                         </el-form-item>
                     </el-form>
-                </div>
+                </div> 
                 <div class="sqlresult">
-                     返回结果&nbsp;&nbsp;&nbsp;( 例：表名user 字段名id 返回结果 userid)<br><br>
+                     返回结果&nbsp;&nbsp;&nbsp;( 例： 表名user 字段名id 返回结果 userId)<br><br>
                     <el-table
                         :data="sqlResult"
                         style="width: 100%"
+                        width="300"
                         height="390"
                         border
                          stripe
@@ -121,6 +122,19 @@ export default {
       }
     },
     methods:{
+        // socket
+            OnMessage(event){
+                // alert(event.data)
+                 this.$notify({
+                    title: '提示',
+                    message: event.data,
+                    duration: 0,
+                    type: 'success'
+                    
+                    });
+            },
+            OnOpen(){},
+            OnError(){},
         //点击获取表内容
         do1(i){
             this.$axios.post("SqlController/executeSql", this.$qs.stringify({
@@ -256,7 +270,8 @@ export default {
                 if(this.isSql(this.sqlForm.sql)){
                     this.$axios.post("SqlController/executeSql", this.$qs.stringify({
                         sql: this.sqlForm.sql,
-                        token: this.token
+                        token: this.token,
+                        isMySql:1
                     })).then(response => {
                         var info = response.data;
                         console.log(info);
@@ -320,6 +335,8 @@ export default {
             // alert(this.sqlForm.sql)
       },
       isSql(sql){
+          //去除sql左边的空格
+         sql = this.trimLeft(sql);
           var patt1 =/^select.+from.+/;
           var patt2 = /^update.+set.+/;
           var patt3 = /^insert.+into.+/;
@@ -327,11 +344,28 @@ export default {
            var patt5 = /^create.+/;
            var patt6 = /^alter.+/;
            var patt7 = /^show.+/;
-          return  patt1.test(sql) || patt2.test(sql)|| patt3.test(sql)|| patt4.test(sql)|| patt5.test(sql)|| patt6.test(sql)|| patt7.test(sql);
+           var patt8 = /^explain.+/;
+          return  patt1.test(sql) || patt2.test(sql)|| patt3.test(sql)|| patt4.test(sql)|| patt5.test(sql)|| patt6.test(sql)|| patt7.test(sql)|| patt8.test(sql);
       }
         
         
-    },
+    ,
+     trimLeft(s){  
+            if(s == null) {  
+                return "";  
+            }  
+            var whitespace = new String(" \t\n\r");  
+            var str = new String(s);  
+            if (whitespace.indexOf(str.charAt(0)) != -1) {  
+                var j=0, i = str.length;  
+                while (j < i && whitespace.indexOf(str.charAt(j)) != -1){  
+                    j++;  
+                }  
+                str = str.substring(j, i);  
+            }  
+            return str;  
+        }  
+        },
     created(){
         // alert(this.token)
         var m1 = this.$route.query.token;
@@ -389,7 +423,13 @@ export default {
         // else{
         //     alert("jajajaj")
         // }
-        
+         
+    
+   var source = new EventSource("http://127.0.0.1:9999/subscribe");
+        source.onopen = this.OnOpen;
+        source.onmessage = this.OnMessage;
+        source.onerror = this.OnError;
+
         
         
     },

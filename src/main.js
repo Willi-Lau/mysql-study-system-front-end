@@ -6,7 +6,9 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import qs from 'qs'
-
+// 引入echarts
+// import echarts from 'echarts'
+Vue.use(ElementUI);
 
 //设置axios的基础url部分
 axios.defaults.baseURL = 'http://localhost:9999/';
@@ -17,7 +19,8 @@ Vue.prototype.$qs = qs;
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI);
+
+// Vue.use(echarts);
 new Vue({
   router,
   store,
