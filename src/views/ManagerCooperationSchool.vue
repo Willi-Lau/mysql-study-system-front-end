@@ -1,5 +1,5 @@
 <template>
-  <div class="ManagerHome">
+  <div class="ManagerCooperationSchool">
       <div class="homeTitle">
           <div class="context">MySQL 学习平台管理界面 </div>
       </div>
@@ -105,12 +105,12 @@
               <el-table-column
                 prop="id"
                 label="id"
-                width="180">
+                width="100">
               </el-table-column>
                <el-table-column
                 prop="name"
                 label="名字"
-                width="280">
+                width="200">
               </el-table-column>
                <el-table-column
                 prop="createTime"
@@ -127,6 +127,19 @@
                 label="注册学生数量"
                 width="180">
               </el-table-column>
+
+               <el-table-column 
+               fixed="right"
+               label="查看续费历史" 
+               width="160">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    type="primary"
+                    @click="getRenewHistory(scope.row.name, scope.row.id)">选择</el-button>
+         
+                </template>
+            </el-table-column>
             
             </el-table>
             <br><br>
@@ -147,7 +160,43 @@
           &nbsp;&nbsp;&nbsp;
              <el-button type="danger" @click="toggleSelection()">取消选择</el-button>
               <el-button type="success" @click="renew()">续期</el-button>
-       </div>
+      <br><br><br>
+       <el-table
+               ref="multipleTable"  
+              :data="renewHistory"
+              border
+               height="350"
+              style="width: 100%">
+
+
+               <el-table-column
+                prop="id"
+                label="id"
+                width="227">
+              </el-table-column>
+              <el-table-column
+                prop="managerId"
+                label="操作管理员id"
+                width="220">
+              </el-table-column>
+              <el-table-column
+                prop="schoolId"
+                label="学校名称"
+                width="220">
+              </el-table-column>
+              <el-table-column
+                prop="renewDurationDay"
+                label="续费时长（天）"
+                width="250">
+              </el-table-column>
+              <el-table-column
+                prop="createTime"
+                label="操作时间"
+                width="250">
+              </el-table-column>
+             
+       </el-table>
+        </div>
   </div>
 </template>
 <script>
@@ -161,7 +210,13 @@ export default {
     
   data() {
       return{
-        
+        renewHistory:[{
+          id:'',
+          managerId:'',
+          schoolId:'',
+          renewDurationDay:'',
+          createTime:''
+        }],
         formLabelWidth: '120px',
         registerSchool:{
           name:'',
@@ -223,6 +278,19 @@ export default {
       }
     },
     methods:{
+      getRenewHistory(name,schoolId){
+          
+            this.$axios.post("ManagerController/getSchoolRenewHistory", this.$qs.stringify({
+                          schoolId:schoolId
+              })).then(response => {
+                           this.renewHistory = response.data.map.renewHistoryList;
+                           for(let i = 0 ; i < this.renewHistory.length ; i++){
+                             this.renewHistory[i].schoolId = name;
+                           }
+              }).catch(error => {
+                            console.log(error);
+              });
+      },
       //续期
       renew(){
         console.log(this.multipleSelection)
@@ -435,33 +503,33 @@ export default {
 </script>
 <style>
 /* 公共部分 */
-    .ManagerHome .homeTitle3{
+    .ManagerCooperationSchool .homeTitle3{
          position: absolute;
           
           background-color:rgba(66,66,66);
             top: 100px;
             left: 50px;  
             width: 180px;  
-            height: 2500px;
+            height: 1500px;
             bottom:0px;
     }
-    .ManagerHome .homeTitle{
+    .ManagerCooperationSchool .homeTitle{
         background-color: black;
         z-index: 100;
     }
-      .ManagerHome .homeTitle2{
+      .ManagerCooperationSchool .homeTitle2{
           position: absolute;
           
           background-color:rgb(43, 39, 39);
             top: 100px;
             left: 0px;  
             width: 50px;  
-            height: 2500px;
+            height: 1500px;
             bottom:0px;
       }
-      .ManagerHome .homeBottom1{
+      .ManagerCooperationSchool .homeBottom1{
             position: relative;
-            top: 2550px;
+            top: 1550px;
             
             background-color: rgba(225,225,225);
             height: 100px;
@@ -471,14 +539,14 @@ export default {
             z-index : 101;
            
         }
-      .ManagerHome .homeBottom1 .text{
+      .ManagerCooperationSchool .homeBottom1 .text{
           position: relative;
           top: 40px;
           color: rgb(200, 150, 102);
           font-size: small;
         }
       /* over */
-   .ManagerHome .d1{
+   .ManagerCooperationSchool .d1{
       float: left;
       text-align: left;
       position: relative;
@@ -488,7 +556,7 @@ export default {
 
       border-bottom: solid 1px #484a50;
     }
-   .ManagerHome .mysql-change-1{
+   .ManagerCooperationSchool .mysql-change-1{
       position: absolute;
       left: 300px;
       top: 150px;
@@ -503,10 +571,10 @@ export default {
   .el-table .success-row {
     background: #aee292;
   }
-  .ManagerHome .el-menu-vertical-demo{
+  .ManagerCooperationSchool .el-menu-vertical-demo{
       width: 180px;
   }
-  .ManagerHome .context{
+  .ManagerCooperationSchool .context{
       color: white;
       font-size: 40px;
   }

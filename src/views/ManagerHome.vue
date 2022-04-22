@@ -625,7 +625,7 @@ export default {
     methods:{
         //跳转界面：
         userInfo(){
-            alert("1")
+           
             this.$router.push({
                     path: "/ManagerHome", //目标URL，为注册的路由
                     query:{
