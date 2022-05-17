@@ -32,14 +32,26 @@ import MySQLSeniorUndoLog from '../views/MySQLSeniorUndoLog.vue'
 import MySQLSeniorRedoLog from '../views/MySQLSeniorRedoLog.vue'
 import MySQLSeniorBinLog from '../views/MySQLSeniorBinLog.vue'
 import MySQLProgram from '../views/MySQLProgram.vue'
+import MySQLTestProgram from '../views/MySQLTestProgram.vue'
 import User from '../views/User.vue'
 import ManagerHome from '../views/ManagerHome.vue'
 import ManagerSpread from '../views/ManagerSpread.vue'
 import ManagerCooperationSchool from '../views/ManagerCooperationSchool.vue'
+import ManagerTest from '../views/ManagerTest.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/ManagerTest',
+    name: 'ManagerTest',
+    component: ManagerTest
+  },
+  {
+    path: '/MySQLTestProgram',
+    name: 'MySQLTestProgram',
+    component: MySQLTestProgram
+  },
   {
     path: '/ManagerCooperationSchool',
     name: 'ManagerCooperationSchool',

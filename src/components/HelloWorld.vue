@@ -2,11 +2,11 @@
     <div>
         <div class="homeTitle">
               <div class="button">
-                <div><el-link type="text" @click="MysqlMain" style="color:white;">教学主页</el-link></div>
-                  <div><el-link type="text" @click="MySQLProgram" style="color:white;">编程主页</el-link></div>
-                   <div> <el-link type="text"  @click="User" style="color:white;">个人信息</el-link></div>
-                  <div class="login"> <el-link type="text" @click="Login" style="color:white;">登录</el-link></div>
-                  <div class="register"> <el-link type="text" @click="Register" style="color:white;">注册</el-link></div>
+                <div><el-link type="text" @click="MysqlMain" style="color:white;"><h3>教学主页</h3></el-link></div>
+                  <div><el-link type="text" @click="MySQLProgram" style="color:white;"><h3>编程主页</h3></el-link></div>
+                   <div> <el-link type="text"  @click="User" style="color:white;"><h3>个人信息</h3></el-link></div>
+                  <div class="login"> <el-link type="text" @click="Login" style="color:white;"><h3>登录</h3></el-link></div>
+                  <div class="register"> <el-link type="text" @click="Register" style="color:white;"><h3>注册</h3></el-link></div>
                    <!-- <div class="unlogin"> <el-link type="text" @click="unLogin" style="color:white;">退出登录</el-link></div>   -->
               </div>
         </div>
@@ -74,7 +74,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
  .homeTitle{
-       background-color:rgb(62,110,147);
+      //  background-color:rgb(62,110,147);
+       background-color: rgb(0, 0, 0);
      // background-color:black;
       position: absolute;
       top: 0px;
@@ -82,6 +83,7 @@ export default {
       height: 100px;
       right: 0px;
       z-index: 100;
+      
   }
    .homeTitle i{
      color: white;
@@ -93,7 +95,7 @@ export default {
    .button div{
          margin-left: 100px;
          display: inline-block;
-         margin-top: 25px;
+         margin-top: 10px;
          margin-right: 100px;
    }
 </style>

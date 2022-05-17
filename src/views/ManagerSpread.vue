@@ -19,7 +19,7 @@
      <div class="homeTitle3">
             <el-col :span="12">
     <el-menu
-      default-active="2"
+      
       class="el-menu-vertical-demo"
        background-color="rgba(66,66,66)"
       @open="handleOpen"
@@ -31,10 +31,10 @@
         <i class="el-icon-user"></i>
         <span slot="title">用户管理页</span>
       </el-menu-item>
-      <!-- <el-menu-item index="2"  @click="managerInfo">
+      <el-menu-item index="2"  @click="managerTest">
         <i class="el-icon-setting"></i>
-        <span slot="title">管理员管理页</span>
-      </el-menu-item> -->
+        <span slot="title">题目管理</span>
+      </el-menu-item>
       <el-menu-item index="3"  @click="userSpread">
         <i class="el-icon-setting"></i>
         <span slot="title">用户广播发送页</span>
@@ -65,6 +65,20 @@
             </el-input>
 
             <br><br>
+            
+            <el-select v-model="value" placeholder="快捷输入">
+            <el-option
+             width="300px"
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+           &nbsp;&nbsp;&nbsp;
+           <el-button type="primary" @click="save()">快捷填入</el-button>
+            
+            
              <el-button type="success" @click="spread()">发送</el-button>
               <el-button type="danger" @click="clear()">清空</el-button>
        </div>
@@ -81,7 +95,23 @@ export default {
     
   data() {
       return{
-          
+          options: [{
+          value: '请注意，今日23时到次日4时服务器更新',
+          label: '请注意，今日23时到次日4时服务器更新'
+        }, {
+          value: '祝各位节日快乐',
+          label: '祝各位节日快乐'
+        }, {
+          value: '紧急通知，服务器出现漏洞，本网站将紧急关闭',
+          label: '紧急通知，服务器出现漏洞，本网站将紧急关闭'
+        }, {
+          value: '本网站在线编程模块临时关闭',
+          label: '本网站在线编程模块临时关闭'
+        }, {
+          value: '注意，近期有不法分子盗取用户信息',
+          label: '注意，近期有不法分子盗取用户信息'
+        }],
+        value: '',
           msg: 'Welcome to Your Vue.js App',
           token:this.$route.query.token,
           textarea: ''
@@ -89,6 +119,10 @@ export default {
       }
     },
     methods:{
+        save(){
+            this.textarea = this.textarea + this.value;
+            this.value = ""
+      },
         clear(){
           this.textarea = ""
         },
@@ -133,6 +167,14 @@ export default {
              
         },
             //跳转界面：
+             managerTest(){
+            this.$router.push({
+                    path: "/ManagerTest", //目标URL，为注册的路由
+                    query:{
+                         token:this.token
+                     }
+                });
+        },
         userInfo(){
             this.$router.push({
                     path: "/ManagerHome", //目标URL，为注册的路由

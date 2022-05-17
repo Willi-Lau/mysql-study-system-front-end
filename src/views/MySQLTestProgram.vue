@@ -1,5 +1,5 @@
 <template >
-  <div class="MySQProgram" >
+  <div class="MySQTestProgram" >
     <!-- 公共部分 -->
       <div class="homeTitle2" >
             <el-menu
@@ -34,9 +34,9 @@
                  <el-row class="tac">
                     <el-col :span="12">
                         
-                            <h5>数据表列表</h5>
+                            <h5>题目列表</h5>
                             <el-menu
-                            default-active="2"
+                            default-active="0"
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"
@@ -53,8 +53,8 @@
                                     </template>
                                         <el-menu-item v-for="items in allTables" :key="items" :label="items" :prop="items" @click="do1(items)" >{{items}}</el-menu-item>
                                 </el-submenu> -->
-                                <v-for v-for="(items,index) in allTables" :key="items" :label="items" :prop="items" @click="do1(items)" index>
-                                    <el-menu-item :index="index">
+                                <v-for v-for="(items,index) in allTables" :key="items" :label="items" :prop="items"  index>
+                                    <el-menu-item :index="index" @click="changeTest(items)">
                                         <i class="el-icon-date"></i>
                                         <span slot="title">{{items}}</span>
                                     </el-menu-item>
@@ -66,53 +66,73 @@
                         </el-col>
                     </el-row>
     </div>
+    <!-- 题目描述 -->
+    <div class="test_discribe">
+        <h5>题目描述</h5>
+            <!-- 题目描述 -->
+          <el-input
+          :disabled="true"
+            type="textarea"
+            :rows="8"
+            placeholder="请输入内容"
+            v-model="discribe">
+            </el-input>
+
+        <h5>数据表结构</h5>
+         <el-table
+            :data="tableColumn"
+            border
+             stripe
+             height="235"
+            style="width: 100%">
+            <el-table-column
+            prop="columnDiscribe"
+            label="列名"
+            width="130">
+            </el-table-column>
+            <el-table-column
+            prop="columnAttribute"
+            label="属性"
+            width="130">
+            </el-table-column>
+        </el-table>
+    </div>
     <div class="mysql-change-1" >
       <div>
                 <!-- <el-button  @click="MySQLProgram1">编程主页</el-button> -->
                 <!-- 规则 -->
-                
+                <h5>SQL输入</h5><br><br>
                 <div class="loginForm">
                     <!-- 输入SQL语句   &nbsp;&nbsp;&nbsp;&nbsp;(多表连接请书写完整join on)<br><br> -->
-                    <h5>SQL输入</h5>
                     <el-form :model="sqlForm"  ref="sqlForm" label-width="  0px" class="demo-ruleForm">
                         <el-form-item label="" prop="username" width="300px">
                             <el-input
                                         
                                        class="textarea111"
                                        v-model="sqlForm.sql"
-                                       placeholder="请输入SQL语句 注意多表查询请书写完整join on" 
+                                       placeholder="请输入SQL语句" 
                                        type="textarea" 
-                                       :rows="16" clearable></el-input>
+                                       :rows="18" clearable></el-input>
                         </el-form-item>
                          <el-form-item class="button">
-                             <el-button type="primary" @click="flushTableList()">刷新表列表</el-button>
-                             <el-button type="success" @click="submitForm()">执行SQL</el-button>
-                             <el-button type="warning" @click="getExample()">获取例子</el-button>
+                              <el-button type="primary" @click="trueSQL()">查看答案</el-button>
+                             <el-button type="success" @click="doSQL()">执行SQL</el-button>
                              <el-button type = "danger" @click="resetForm()">重置SQL</el-button>
                          </el-form-item>
                     </el-form>
                 </div>
 
-
-                <div class="sqllog">
-                    <el-form :model="logForm" ref="logForm" label-width="  0px" class="demo-ruleForm">
-                        <el-form-item label="" prop="username" width="100px">
-                            <el-input v-model="logForm.log" placeholder="" type="textarea" :rows="3" class="textarea112" :disabled="true"
-                            
-                             ></el-input>
-                        </el-form-item>
-                    </el-form>
-                </div> 
-                <div class="sqlresult">
-                     <h5>返回结果&nbsp;&nbsp;&nbsp;( 例： 表名user 字段名id 返回结果 userId) </h5>
+                <!-- 期望结果   :header-cell-style="{background:'rgb(103,194,58)',color:'rgb(38,50,56)'}"-->
+                <div class="sqlresult2">
+                     <h5>期望结果</h5>
                     <el-table
-                        :data="sqlResult"
-                        style="width: 100%"
-                        width="300"
-                        height="390"
+                        :data="trueSQLResult"
+                        
+                        width="260"
+                        height="250"
                         border
                          stripe
-                      
+                        
                         >
                        <el-table-column v-for="items in sqlColum" :key="items" :label="items" :prop="items" class="sqlresultcolumn">
                             <!-- <template slot-scope="scope">	
@@ -121,9 +141,26 @@
                             </template> -->
                         </el-table-column>
                     </el-table>
-                  
-                     
-                    
+                </div>
+               <!-- 用户结果 -->
+                <div class="sqlresult">
+                      <h5>用户结果</h5>
+                    <el-table
+                        :data="userSQlResult"
+                       
+                        width="260"
+                        height="250"
+                        border
+                         stripe
+                         
+                        >
+                       <el-table-column v-for="items in sqlColum" :key="items" :label="items" :prop="items" class="sqlresultcolumn">
+                            <!-- <template slot-scope="scope">	
+                                //这里items是分类数组中其中一个
+                                <span>{{ items }}</span> 
+                            </template> -->
+                        </el-table-column>
+                    </el-table>
                 </div>
       </div>       
     </div>
@@ -137,6 +174,14 @@ import Mysql from '../components/Mysql.vue';
 export default {
   data() {
       return{
+          currentTestId:'1',
+          discribe:"adsasdasddasasdadsasdasdsadasdasddasasdadasddsasda",
+          tableColumn:[{
+              columnDiscribe:'',
+              columnAttribute:''
+          }],
+          trueSQL1:"",
+
           token:"1234",
            sqlForm: {
                 sql: "",
@@ -145,21 +190,82 @@ export default {
                 log: ""
             },
             sqlColum:["1","2","3","4","5"],
-            allTables:[],
+            allTables:["1","2","3","4","5"],
             // sqlColum:[],
-            sqlResult:[
+            trueSQLResult:[
                 {
-                    "1-1":"123",
-                    "2":"234",
-                    "3":"345",
-                    "4":"456",
-                    "5":"123"
+                    "1":"null",
+                    "2":"null",
+                    "3":"null",
+                    "4":"null",
+                    "5":"null"
                 }
-            ]
+            ],
+            userSQlResult:[
+                {
+                    "1":"null",
+                    "2":"null",
+                    "3":"null",
+                    "4":"null",
+                    "5":"null"
+                }
+            ],
       }
     },
     methods:{
-        mineProgram(){
+        doSQL(){
+            // 筛选 只允许执行select语句
+             this.$axios.post("SqlController/runSQL", this.$qs.stringify({
+                      token:this.token,
+                      userSQL:this.sqlForm.sql,
+                      testId: this.currentTestId
+                    })).then(response => {
+                        var info = response.data;
+                        console.log(info);
+                        if(info.type === true){
+                            this.userSQlResult = info.map.userResult;
+                        }
+                        else{
+                            this.$alert('失败，此处只能写入select', 'error', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                this.$message({
+                                type: 'error',
+                                message: `SQL语句有问题请检查`
+                                });
+                            }
+                            });
+                        }
+                         
+                    }).catch(error => {
+                        console.log(error);
+                    });
+        },
+        trueSQL(){
+            this.sqlForm.sql = this.trueSQL1;
+        },
+        //根据题号获取题目信息
+        changeTest(value){
+            this.currentTestId = value;
+           this.$axios.post("SqlController/getTestDiscribe", this.$qs.stringify({
+                      id:value
+                    })).then(response => {
+                        var info = response.data;
+                        console.log(info);
+                        this.discribe = info.map.discribe;
+                        this.tableColumn = info.map.column;
+                        this.trueSQL1 = info.map.trueSQL;
+                        for(let i = 0 ; i < this.tableColumn.length ; i++){
+                            this.sqlColum[i] = this.tableColumn[i].columnDiscribe;
+                        }
+                         this.trueSQLResult = info.map.trueResult;
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.sqlForm.sql = ""
+                    this.userSQlResult = ""
+        },
+          mineProgram(){
             this.$router.push({
                 path: "/MySQLProgram", //目标URL，为注册的路由
                 query:{
@@ -190,29 +296,29 @@ this.$router.push({
             OnError(){},
         //点击获取表内容
         do1(i){
-            this.$axios.post("SqlController/executeSql", this.$qs.stringify({
-                        sql: "select * from "+i,
-                        token: this.token
-                    })).then(response => {
-                        var info = response.data;
-                        console.log(info);
-                        // Vue.set(this.logForm,log,response.data.object);
-                        this.logForm.log = info.object;
-                        if(this.logForm.log === "sql success"){
-                            this.sqlColum = info.map.column;
-                            this.sqlResult = info.map.result;
+            // this.$axios.post("SqlController/executeSql", this.$qs.stringify({
+            //             sql: "select * from "+i,
+            //             token: this.token
+            //         })).then(response => {
+            //             var info = response.data;
+            //             console.log(info);
+            //             // Vue.set(this.logForm,log,response.data.object);
+            //             this.logForm.log = info.object;
+            //             if(this.logForm.log === "sql success"){
+            //                 this.sqlColum = info.map.column;
+            //                 this.sqlResult = info.map.result;
                             
-                        }
-                        else{
-                            this.sqlColum = "";
-                            this.sqlResult = "";
-                        }
+            //             }
+            //             else{
+            //                 this.sqlColum = "";
+            //                 this.sqlResult = "";
+            //             }
                         
 
 
-                    }).catch(error => {
-                        console.log(error);
-                    });
+            //         }).catch(error => {
+            //             console.log(error);
+            //         });
         },
         flushTableList(){
              if(this.token === "1234"){
@@ -360,32 +466,7 @@ this.$router.push({
              }
          
               
-            //   this.$axios.post('RegisterController/register',
-            //       this.ruleForm
-            //   ).then(response=>{      //返回值部分
-            //       this.resultDto = response.data;
-            //       var resp = this.resultDto.type;
-            //     if(resp === false){
-            //         this.loginErrorNull(this.resultDto.object);
-            //     }
-            //     else{
-            //         this.$alert('注册成功', 'success', {
-            //             confirmButtonText: '确定',
-            //             callback: action => {
-            //                 this.$message({
-            //                 type: 'success',
-            //                 message: `注册成功`
-            //                 });
-            //             }
-            //             });
-            //         this.$router.push({
-            //             path:'/' ,               	//目标URL，为注册的路由
-            //             })
-            //     }
-            //   }).catch(error=>{
-            //       console.log(error)
-            //   });
-            // alert(this.sqlForm.sql)
+          
       },
       isSql(sql){
           //去除sql左边的空格
@@ -425,58 +506,36 @@ this.$router.push({
         //获取table list
         if(Object.keys(m1).length >0){
             this.token = m1;
-
-                this.$axios.post("SqlController/executeSql", this.$qs.stringify({
-                        sql: "show tables;",
-                        token: this.token
+            //获取所有题目列表
+               this.$axios.post("SqlController/getAllId", this.$qs.stringify({
                     })).then(response => {
                         var info = response.data;
                         console.log(info);
-                        // Vue.set(this.logForm,log,response.data.object);
-                        this.logForm.log = info.object;
-                        if(this.logForm.log === "sql success"){
-                            // this.sqlColum = info.map.column;
-                            // this.sqlResult = info.map.result;
-                            this.allTables = info.map.table;
-                        }
-                        else{
-                            this.sqlColum = "";
-                            this.sqlResult = "";
-                        }
-                        
-
-
+                       this.allTables = info.map.result;
                     }).catch(error => {
                         console.log(error);
                     });
-
-                    this.$axios.post("SqlController/getExampleSql", this.$qs.stringify({
-        
-                    })).then(response => {
-                        var info = response.data;
-                        console.log(info);
-                        // Vue.set(this.logForm,log,response.data.object);
-                        this.logForm.log = info.object;
-                        if(this.logForm.log === "sql success"){
-                            this.sqlColum = info.map.column;
-                            this.sqlResult = info.map.result;
-                            
-                        }
-                        else{
-                            this.sqlColum = "";
-                            this.sqlResult = "";
-                        }
-                        
-
-
-                    }).catch(error => {
-                        console.log(error);
-                    });
+            //获取第一题信息
+               
         }
         // else{
         //     alert("jajajaj")
         // }
-         
+             this.$axios.post("SqlController/getTestDiscribe", this.$qs.stringify({
+                      id:1
+                    })).then(response => {
+                        var info = response.data;
+                        console.log(info);
+                        this.discribe = info.map.discribe;
+                        this.tableColumn = info.map.column;
+                        this.trueSQL1 = info.map.trueSQL;
+                    for(let i = 0 ; i < this.tableColumn.length ; i++){
+                            this.sqlColum[i] = this.tableColumn[i].columnDiscribe;
+                        }
+                         this.trueSQLResult = info.map.trueResult;
+                    }).catch(error => {
+                        console.log(error);
+                    });
     
    var source = new EventSource("http://127.0.0.1:9999/subscribe");
         source.onopen = this.OnOpen;
@@ -494,20 +553,20 @@ this.$router.push({
 <style>
 /* 公共部分 */
         
-      .MySQProgram .homeTitle2{
+      .MySQTestProgram .homeTitle2{
           position: absolute;
           
           background-color:rgba(66,66,66);
             top: 100px;
             left: 0px;  
             width: 150px;  
-            height: 700px;
+            height: 750px;
             bottom:0px;
             z-index: 10;
       }
-      .MySQProgram .homeBottom1{
+      .MySQTestProgram .homeBottom1{
             position: relative;
-            top: 750px;
+            top: 800px;
             
             background-color: rgba(225,225,225);
             height: 100px;
@@ -517,14 +576,14 @@ this.$router.push({
             z-index: 100;
            
         }
-        .MySQProgram .homeBottom1 .text{
+        .MySQTestProgram .homeBottom1 .text{
           position: relative;
           top: 40px;
           color: rgb(200, 150, 102);
           font-size: small;
         }
       /* over */
-   .MySQProgram .d1{
+   .MySQTestProgram .d1{
       float: left;
       text-align: left;
       position: relative;
@@ -533,7 +592,7 @@ this.$router.push({
 
       /* border-bottom: solid 1px #484a50; */
     }
-   .MySQProgram .mysql-change-1{
+   .MySQTestProgram .mysql-change-1{
       /* position: absolute;
       left: -300px;
       top: -150px;
@@ -542,17 +601,17 @@ this.$router.push({
       /* background-color: aqua; */
       /* z-index: 1; */ 
     }
-    .MySQProgram .loginForm{
+    .MySQTestProgram .loginForm{
         position: absolute;
-      left: 350px;
-      top: 130px;
-      right: 700px;
+      left: 550px;
+      top: 170px;
+      right: 570px;
       bottom:0px;
       /* background-color: aqua; */
       z-index: 10;
     }
 
-     .MySQProgram .sqllog{
+     .MySQTestProgram .sqllog{
         position: absolute;
       left: 850px;
       top: 580px;
@@ -562,28 +621,46 @@ this.$router.push({
       z-index: 10;
     }
 
-    .MySQProgram .sqlresult{
+    .MySQTestProgram .sqlresult{
          position: absolute;
-      left: 850px;
-      top: 130px;
-      right: 100px;
+      left: 1000px;
+      top: 410px;
+      right: 20px;
       /* bottom:0px; */
       /* background-color: aqua; */
       z-index: 10;
     }
 
-    .alltable{
+    .MySQTestProgram .sqlresult2{
+    position: absolute;
+      left: 1000px;
+      top: 110px;
+      right: 20px;
+      /* bottom:0px; */
+      /* background-color: aqua; */
+      z-index: 10;
+    }
+
+    .MySQTestProgram .alltable{
          position: absolute;
       left: 150px;
-      top: 135px;
+      top: 120px;
 
       /* bottom:0px; */
       /* background-color: aqua; */
       z-index: 10;
-      width: 400px;
+      width: 200px;
         
     }
-
+    .test_discribe{
+        
+        position: absolute;
+        left:250px;
+        top: 110px;
+        bottom: 0px;
+        right: 1000px;
+        z-index: 500;
+    }
      .el-textarea__inner{
  font-family:"Monaco" !important;
 
@@ -600,8 +677,7 @@ this.$router.push({
 
  font-size:20px !important;
  color: rgba(255, 255, 255, 0.784);
- /* background-color: rgb(38,50,56); */
-  background-color: rgb(43,43,43);
+ background-color: rgb(43,43,43);
 }
 .textarea112 >>> .el-textarea__inner{
  font-family:"Monaco" !important;

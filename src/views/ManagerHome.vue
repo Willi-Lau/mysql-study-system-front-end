@@ -19,7 +19,7 @@
      <div class="homeTitle3">
             <el-col :span="12">
     <el-menu
-      default-active="2"
+     
       class="el-menu-vertical-demo"
        background-color="rgba(66,66,66)"
       @open="handleOpen"
@@ -31,10 +31,10 @@
         <i class="el-icon-user"></i>
         <span slot="title">用户管理页</span>
       </el-menu-item>
-      <!-- <el-menu-item index="2"  @click="managerInfo">
+      <el-menu-item index="2"  @click="managerTest">
         <i class="el-icon-setting"></i>
-        <span slot="title">管理员管理页</span>
-      </el-menu-item> -->
+        <span slot="title">题目管理</span>
+      </el-menu-item>
       <el-menu-item index="3"  @click="userSpread">
         <i class="el-icon-setting"></i>
         <span slot="title">用户广播发送页</span>
@@ -118,6 +118,7 @@
       <br>
          <!-- 用户列表 -->
          <el-table
+        
             :data="userList"
             height="350"
             border
@@ -623,6 +624,14 @@ export default {
       }
     },
     methods:{
+        managerTest(){
+            this.$router.push({
+                    path: "/ManagerTest", //目标URL，为注册的路由
+                    query:{
+                        token:this.token
+                     }
+                });
+        },
         //跳转界面：
         userInfo(){
            
@@ -795,6 +804,14 @@ export default {
                 });
                 //改变值
                 this.userList[index].state = event ;
+        },
+         managertest(){
+            this.$router.push({
+                    path: "/ManagerTest", //目标URL，为注册的路由
+                    query:{
+                         token:this.token
+                     }
+                });
         },
             user(){
                   this.$router.push({

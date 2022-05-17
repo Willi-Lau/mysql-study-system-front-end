@@ -19,7 +19,7 @@
      <div class="homeTitle3">
             <el-col :span="12">
     <el-menu
-      default-active="2"
+     
       class="el-menu-vertical-demo"
        background-color="rgba(66,66,66)"
       @open="handleOpen"
@@ -31,10 +31,10 @@
         <i class="el-icon-user"></i>
         <span slot="title">用户管理页</span>
       </el-menu-item>
-      <!-- <el-menu-item index="2"  @click="managerInfo">
+      <el-menu-item index="2"  @click="managerTest">
         <i class="el-icon-setting"></i>
-        <span slot="title">管理员管理页</span>
-      </el-menu-item> -->
+        <span slot="title">题目管理</span>
+      </el-menu-item>
       <el-menu-item index="3"  @click="userSpread">
         <i class="el-icon-setting"></i>
         <span slot="title">用户广播发送页</span>
@@ -158,7 +158,7 @@
 
             </el-input>
           &nbsp;&nbsp;&nbsp;
-             <el-button type="danger" @click="toggleSelection()">取消选择</el-button>
+             <!-- <el-button type="danger" @click="toggleSelection()">取消选择</el-button> -->
               <el-button type="success" @click="renew()">续期</el-button>
       <br><br><br>
        <el-table
@@ -345,16 +345,24 @@ export default {
       toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
+            this.$refs.schoolList.toggleRowSelection(row);
           });
         } else {
-          this.$refs.multipleTable.clearSelection();
+          this.$refs.schoolList.clearSelection();
         }
       },
        handleSelectionChange(val) {
         this.multipleSelection = val;
       },
             //跳转界面：
+             managerTest(){
+            this.$router.push({
+                    path: "/ManagerTest", //目标URL，为注册的路由
+                    query:{
+                         token:this.token
+                     }
+                });
+        },
         userInfo(){
             this.$router.push({
                     path: "/ManagerHome", //目标URL，为注册的路由

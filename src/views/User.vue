@@ -155,13 +155,54 @@
                         </template>
                          {{this.user.errorNumber}}
                     </el-descriptions-item>
-
-                </el-descriptions>
+                      <el-descriptions-item>
+                        <template slot="label">
+                            <i class="el-icon-office-building"></i>
+                            点击修改用户信息
+                        </template>
+                         <el-button type = "primary" @click="openChangeUser">修改用户信息</el-button>
+                    </el-descriptions-item>
+                </el-descriptions>  
+                <el-dialog
+                    title="修改用户信息"
+                    :visible.sync="dialogVisible"
+                    width="30%"
+                    :before-close="handleClose">
+                   
+                    <span slot="footer" class="dialog-footer" >
+                        <el-form  :model="changeUser" >
+                            <el-form-item label="名字">
+                                <el-input v-model="changeUser.name" placeholder="审批人"></el-input>
+                            </el-form-item>
+                              <el-form-item label="手机号">
+                                <el-input v-model="changeUser.phone" placeholder="审批人"></el-input>
+                            </el-form-item>
+                            <el-form-item label="学校">
+                                    <el-select v-model="changeUser.university" placeholder="学校" style="width:100%">
+                                           <el-option
+                                            v-for="item in schoolList"
+                                            :key="item.name"
+                                            :label="item.name"
+                                            :value="item.name">
+                                            </el-option>
+                                    </el-select>
+                            </el-form-item>
+                            <el-form-item label="班级">
+                                <el-input v-model="changeUser.className" placeholder="审批人"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <el-button type="danger" @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="success" @click="saveChangeUserInfo">保 存</el-button>
+                    </span>
+                </el-dialog>
+                
+                
                 <br><br><br> 
                 <div><h4>执行SQL历史</h4></div>
                 <br>
                 <template>
                     <el-table
+                    
                       :row-class-name="tableRowClassName"
                         :data="sqlData"
                         height="1000"
@@ -234,6 +275,7 @@ export default {
     
   data() {
       return{
+           dialogVisible: false,
           msg: 'Welcome to Your Vue.js App',
           token:"1234",
           sqlData:[{
@@ -258,10 +300,67 @@ export default {
               otherNumber:'',
               successNumber:'',
               errorNumber:''
-          }
+          },
+          changeUser:{
+              studentNumber:'',
+              name:'',
+              phone:'',
+              university:'',
+              className:''
+          },
+           schoolList:[{
+              id:'',
+              name:'',
+              createTime:'',
+              deadline:'',
+              studentNum:''
+          }],
       }
     },
     methods:{
+            saveChangeUserInfo(){
+                this.dialogVisible = false;
+                //判断是否为空
+                 this.$axios.post("UserController/changeUserInfo", this.$qs.stringify({
+                     name : this.changeUser.name,
+                     phone : this.changeUser.phone,
+                     oldUniversity : this.user.university,
+                     newUniversity : this.changeUser.university,
+                     className : this.changeUser.className,
+                     studentNum : this.user.studentNumber, 
+                    })).then(response => {
+                        
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                      //location.reload();
+                    this.user.name = this.changeUser.name;
+                    this.user.phone = this.changeUser.phone;
+                    this.user.university = this.changeUser.university;
+                    this.user.className = this.changeUser.className;
+                    
+                    
+            },
+            openChangeUser(){
+                //获取学校列表
+                    this.dialogVisible = true;
+                    this.$axios.post("ManagerController/getSchoolList", this.$qs.stringify({
+                    })).then(response => {
+                        var info = response.data;
+                        this.schoolList = info.map.schoolList;
+                       
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                //给表单赋值
+                this.changeUser.name = this.user.name;
+                this.changeUser.phone = this.user.phone;
+                this.changeUser.university = this.user.university;
+                this.changeUser.className = this.user.className;
+                this.changeUser.studentNum = this.user.studentNum;
+
+
+            },
             user(){
                   this.$router.push({
                     path: "/User", //目标URL，为注册的路由

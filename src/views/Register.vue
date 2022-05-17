@@ -50,7 +50,18 @@
       </el-form>
      </div>
 
-
+    <!-- 提示 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>身份证号，学号一经注册不可修改，请再次检查</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
 
 
  </div>
@@ -127,6 +138,8 @@ export default {
                 };
   }
       return {
+        dialogVisible: false,
+        registerType : 0,
         resultDto:{
                 type:'',
                 object:'',
@@ -201,7 +214,12 @@ export default {
             OnOpen(){},
             OnError(){},
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+        if(this.registerType === 0){
+          this.dialogVisible = true;
+          this.registerType = 1;
+        }
+        else{
+           this.$refs[formName].validate((valid) => {
           // 登录验证部分
             if (valid) {
                 //向后台查找，返回关于这个选手的所有信息，包括选手表和图库信息       selectcandidateimages
@@ -235,6 +253,15 @@ export default {
 
           }
         });
+        }
+       
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
       },
       back(){
            this.$router.push({
@@ -274,7 +301,7 @@ export default {
         source.onmessage = this.OnMessage;
         source.onerror = this.OnError;
 
-         this.$axios.post("ManagerController/getSchoolList", this.$qs.stringify({
+         this.$axios.post("ManagerController/getSchoolListTimeOut", this.$qs.stringify({
                     })).then(response => {
                         var info = response.data;
                         this.schoolList = info.map.schoolList;
