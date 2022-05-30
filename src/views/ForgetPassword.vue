@@ -43,6 +43,7 @@ export default {
     },
     methods:{
       submitForm(){
+        if(this.ruleForm.password === this.ruleForm.password2){
           //向后台查找，返回关于这个选手的所有信息，包括选手表和图库信息       selectcandidateimages
                     this.$axios.post("FrogetPasswordController/changePassword", this.$qs.stringify({
                         phone: this.ruleForm.phone,
@@ -54,10 +55,15 @@ export default {
                         if (resp === false) {
                             //登录失败
                            const h = this.$createElement;
-                          this.$notify({
-                            title: '修改密码失败',
-                            message: h('i', { style: 'color: teal'}, '请检查信息')
-                          });
+                           this.$alert('手机号不存在，请重新输入', 'error', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                this.$message({
+                                type: 'error',
+                                message: `手机号不存在，请重新输入`
+                                });
+                            }
+                            });
                         }
                         else {
                           const h = this.$createElement;
@@ -79,6 +85,19 @@ export default {
                     }).catch(error => {
                         console.log(error);
                     });
+        }
+        else{
+           this.$alert('两次密码不一致', 'error', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            this.$message({
+                            type: 'error',
+                            message: `两次密码不一致`
+                            });
+                        }
+                        });
+        }
+          
       },
         back(){
           this.$router.push({

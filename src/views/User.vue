@@ -344,7 +344,7 @@ export default {
             openChangeUser(){
                 //获取学校列表
                     this.dialogVisible = true;
-                    this.$axios.post("ManagerController/getSchoolList", this.$qs.stringify({
+                    this.$axios.post("ManagerController/getSchoolListTimeOut", this.$qs.stringify({
                     })).then(response => {
                         var info = response.data;
                         this.schoolList = info.map.schoolList;

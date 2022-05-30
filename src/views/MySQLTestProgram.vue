@@ -214,7 +214,23 @@ export default {
     },
     methods:{
         doSQL(){
-            // 筛选 只允许执行select语句
+             if(this.token === "1234"){
+                     this.$alert('请登录', 'error', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            this.$message({
+                            type: 'error',
+                            message: `失败，请登录在执行`
+                            });
+                        }
+                    });
+                    // 跳转登录
+                    this.$router.push({
+                        path:'/' ,               	//目标URL，为注册的路由
+                    })
+             }
+             else{
+                   // 筛选 只允许执行select语句
              this.$axios.post("SqlController/runSQL", this.$qs.stringify({
                       token:this.token,
                       userSQL:this.sqlForm.sql,
@@ -240,6 +256,8 @@ export default {
                     }).catch(error => {
                         console.log(error);
                     });
+             }
+          
         },
         trueSQL(){
             this.sqlForm.sql = this.trueSQL1;
